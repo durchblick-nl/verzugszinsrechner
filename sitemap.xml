@@ -22,4 +22,24 @@
         <xhtml:link rel="alternate" hreflang="fr" href="https://verzugszinsrechner.ch/fr/"/>
     </url>
 
+    <!-- German Mahnrechner -->
+    <url>
+        <loc>https://verzugszinsrechner.ch/de/mahnrechner.html</loc>
+        <lastmod>2025-11-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="de" href="https://verzugszinsrechner.ch/de/mahnrechner.html"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://verzugszinsrechner.ch/fr/mahnrechner.html"/>
+    </url>
+
+    <!-- French Mahnrechner -->
+    <url>
+        <loc>https://verzugszinsrechner.ch/fr/mahnrechner.html</loc>
+        <lastmod>2025-11-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="de" href="https://verzugszinsrechner.ch/de/mahnrechner.html"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://verzugszinsrechner.ch/fr/mahnrechner.html"/>
+    </url>
+
 </urlset>

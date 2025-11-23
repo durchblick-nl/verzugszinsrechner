@@ -60,6 +60,31 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .tool-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .tool-nav a {
+            padding: 8px 16px;
+            background: #f5f5f5;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #3f606f;
+            font-family: 'Economica', sans-serif;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .tool-nav a:hover {
+            background: #e0e0e0;
+        }
+        .tool-nav a.active {
+            background: #3f606f;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -71,6 +96,11 @@
         </div>
 
         <h1><img src="../favicon.svg" alt="" class="title-icon">Calculateur d'intérêts moratoires</h1>
+
+        <nav class="tool-nav">
+            <a href="../fr/" class="active">Calculateur d'intérêts</a>
+            <a href="../fr/mahnrechner.html">Calculateur de rappels</a>
+        </nav>
 
         <div class="steps-container">
             <div class="step-card">

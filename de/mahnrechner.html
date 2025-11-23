@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schweizer Mahnrechner - Mahnkosten und Verzugszinsen berechnen</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <meta name="description" content="Berechnen Sie Mahngebühren und Verzugszinsen für Ihre Forderungen. Mit mehreren Mahnstufen und gesetzlichem Zinssatz nach OR Art. 104.">
+    <meta name="keywords" content="Mahnrechner, Mahngebühren, Mahnkosten, Verzugszinsen, Mahnung, Schweiz, OR Art. 104, Inkasso">
+    <meta name="author" content="Durchblick Consultancy BV">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://verzugszinsrechner.ch/de/mahnrechner.html">
+    <meta property="og:title" content="Schweizer Mahnrechner - Mahnkosten berechnen">
+    <meta property="og:description" content="Berechnen Sie Mahngebühren und Verzugszinsen für Ihre Forderungen. Mit mehreren Mahnstufen.">
+    <meta property="og:image" content="https://verzugszinsrechner.ch/images/og-zins-de.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="de_CH">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Schweizer Mahnrechner - Mahnkosten berechnen">
+    <meta name="twitter:description" content="Berechnen Sie Mahngebühren und Verzugszinsen für Ihre Forderungen. Mit mehreren Mahnstufen.">
+    <meta name="twitter:image" content="https://verzugszinsrechner.ch/images/og-zins-de.png">
+
+    <!-- Canonical & Language -->
+    <link rel="canonical" href="https://verzugszinsrechner.ch/de/mahnrechner.html">
+    <link rel="alternate" hreflang="de" href="https://verzugszinsrechner.ch/de/mahnrechner.html">
+    <link rel="alternate" hreflang="fr" href="https://verzugszinsrechner.ch/fr/mahnrechner.html">
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Schweizer Mahnrechner",
+        "description": "Berechnen Sie Mahngebühren und Verzugszinsen für Ihre Forderungen",
+        "url": "https://verzugszinsrechner.ch/de/mahnrechner.html",
+        "applicationCategory": "LegalService",
+        "operatingSystem": "Web",
+        "inLanguage": "de-CH",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "CHF"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Durchblick Consultancy BV",
+            "url": "https://durchblick.nl"
+        }
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Economica:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .tool-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .tool-nav a {
+            padding: 8px 16px;
+            background: #f5f5f5;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #3f606f;
+            font-family: 'Economica', sans-serif;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .tool-nav a:hover {
+            background: #e0e0e0;
+        }
+        .tool-nav a.active {
+            background: #3f606f;
+            color: white;
+        }
+        .reminder-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 10px;
+            align-items: end;
+            margin-bottom: 10px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        .reminder-row .form-group {
+            margin-bottom: 0;
+        }
+        .reminder-row label {
+            font-size: 0.9rem;
+        }
+        .remove-reminder {
+            padding: 8px 12px;
+            background: #cc5c53;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            height: 42px;
+        }
+        .remove-reminder:hover {
+            background: #b04a42;
+        }
+        .add-reminder {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #5a8a9d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Economica', sans-serif;
+            font-weight: 600;
+        }
+        .add-reminder:hover {
+            background: #4a7a8d;
+        }
+        .reminder-number {
+            font-weight: bold;
+            color: #3f606f;
+            margin-bottom: 5px;
+        }
+        @media (max-width: 600px) {
+            .reminder-row {
+                grid-template-columns: 1fr;
+            }
+            .remove-reminder {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-row">
+            <div class="language-switcher">
+                <a href="../de/mahnrechner.html" class="lang-btn active">DE</a>
+                <a href="../fr/mahnrechner.html" class="lang-btn">FR</a>
+            </div>
+        </div>
+
+        <h1><img src="../favicon.svg" alt="" class="title-icon">Schweizer Mahnrechner</h1>
+
+        <nav class="tool-nav">
+            <a href="../de/">Verzugszinsrechner</a>
+            <a href="../de/mahnrechner.html" class="active">Mahnrechner</a>
+        </nav>
+
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-icon">
+                    <i class="fas fa-file-invoice"></i>
+                    <div class="step-number">1</div>
+                </div>
+                <div class="step-content">
+                    <h3>Rechnung erfassen</h3>
+                    <p>Geben Sie den ursprünglichen Rechnungsbetrag und das Fälligkeitsdatum ein.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-icon">
+                    <i class="fas fa-envelope"></i>
+                    <div class="step-number">2</div>
+                </div>
+                <div class="step-content">
+                    <h3>Mahnungen hinzufügen</h3>
+                    <p>Erfassen Sie die versandten Mahnungen mit Datum und Mahngebühr (üblich: CHF 20-50).</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-icon">
+                    <i class="fas fa-calculator"></i>
+                    <div class="step-number">3</div>
+                </div>
+                <div class="step-content">
+                    <h3>Gesamtforderung</h3>
+                    <p>Erhalten Sie die Gesamtsumme inkl. Kapital, Mahngebühren und Verzugszinsen.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="calculator-card">
+            <form id="mahnForm">
+                <div class="form-group">
+                    <label for="principal" class="required">Rechnungsbetrag (CHF)
+                        <span class="info-tooltip">
+                            <span class="info-icon">?</span>
+                            <span class="tooltip-content">Der ursprüngliche Rechnungsbetrag ohne Mahngebühren.</span>
+                        </span>
+                    </label>
+                    <div class="currency-input-wrapper">
+                        <input type="text"
+                               id="principal"
+                               name="principal"
+                               required
+                               placeholder="z.B. 1'500.00"
+                               title="Rechnungsbetrag in CHF">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="invoiceDate" class="required">Fälligkeitsdatum der Rechnung
+                        <span class="info-tooltip">
+                            <span class="info-icon">?</span>
+                            <span class="tooltip-content">Das Datum, bis zu dem die Rechnung bezahlt werden musste. Ab dem Folgetag beginnt der Verzug.</span>
+                        </span>
+                    </label>
+                    <input type="text"
+                           id="invoiceDate"
+                           name="invoiceDate"
+                           required
+                           title="Fälligkeitsdatum"
+                           pattern="\d{2}\.\d{2}\.\d{4}">
+                    <small class="form-hint">Format: TT.MM.JJJJ</small>
+                </div>
+
+                <div class="form-group">
+                    <label>Mahnungen
+                        <span class="info-tooltip">
+                            <span class="info-icon">?</span>
+                            <span class="tooltip-content">Fügen Sie alle versandten Mahnungen hinzu. Übliche Mahngebühren: 1. Mahnung CHF 0-20, 2. Mahnung CHF 20-30, 3. Mahnung CHF 30-50.</span>
+                        </span>
+                    </label>
+                    <div id="remindersContainer">
+                        <div class="reminder-row" data-reminder="1">
+                            <div class="form-group">
+                                <div class="reminder-number">1. Mahnung</div>
+                                <label for="reminderDate1">Datum</label>
+                                <input type="text" id="reminderDate1" name="reminderDate1" class="reminder-date" pattern="\d{2}\.\d{2}\.\d{4}" placeholder="TT.MM.JJJJ">
+                            </div>
+                            <div class="form-group">
+                                <label for="reminderFee1">Mahngebühr (CHF)</label>
+                                <input type="text" id="reminderFee1" name="reminderFee1" class="reminder-fee" placeholder="z.B. 20.00" value="0.00">
+                            </div>
+                            <button type="button" class="remove-reminder" onclick="removeReminder(this)" style="visibility: hidden;">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-reminder" onclick="addReminder()">
+                        <i class="fas fa-plus"></i> Weitere Mahnung hinzufügen
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <label for="endDate" class="required">Berechnungsdatum (bis)
+                        <span class="info-tooltip">
+                            <span class="info-icon">?</span>
+                            <span class="tooltip-content">Das Datum, bis zu dem gerechnet werden soll. Oft das heutige Datum.</span>
+                        </span>
+                    </label>
+                    <input type="text"
+                           id="endDate"
+                           name="endDate"
+                           required
+                           title="Berechnungsdatum"
+                           pattern="\d{2}\.\d{2}\.\d{4}">
+                    <small class="form-hint">Format: TT.MM.JJJJ</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="rateType">Zinssatz
+                        <span class="info-tooltip">
+                            <span class="info-icon">?</span>
+                            <span class="tooltip-content">Der gesetzliche Verzugszins beträgt 5% p.a. (OR Art. 104).</span>
+                        </span>
+                    </label>
+                    <select id="rateType" name="rateType" onchange="toggleCustomRate()">
+                        <option value="5">Gesetzlicher Zinssatz: 5% p.a. (OR Art. 104)</option>
+                        <option value="custom">Vertraglicher Zinssatz</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="customRateGroup" style="display: none;">
+                    <label for="customRate" class="required">Vertraglicher Zinssatz (% p.a.)</label>
+                    <input type="number"
+                           id="customRate"
+                           name="customRate"
+                           step="0.01"
+                           min="0"
+                           max="100"
+                           placeholder="z.B. 8.5"
+                           class="form-control">
+                </div>
+
+                <div class="warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Achtung: Dieser Rechner dient nur zur Orientierung. Mahngebühren müssen angemessen sein und dürfen nicht überhöht werden.
+                </div>
+
+                <button type="submit">Gesamtforderung berechnen</button>
+            </form>
+
+            <div id="result" class="result" style="display: none;">
+                <div class="result-actions">
+                    <button type="button" onclick="printResult()" class="print-button">
+                        <i class="fas fa-print"></i> Ergebnis drucken
+                    </button>
+                </div>
+                <div class="result-summary"></div>
+            </div>
+        </div>
+
+        <div class="info-cards-container">
+            <div class="info-step-card highlight">
+                <div class="step-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <div class="step-content">
+                    <h3>Mahngebühren in der Schweiz</h3>
+                    <p>Mahngebühren sind gesetzlich nicht geregelt, müssen aber <strong>angemessen</strong> sein. Übliche Richtwerte:</p>
+                    <ul>
+                        <li><strong>1. Mahnung:</strong> CHF 0–20 (oft kostenlos als Zahlungserinnerung)</li>
+                        <li><strong>2. Mahnung:</strong> CHF 20–30</li>
+                        <li><strong>3. Mahnung:</strong> CHF 30–50</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="info-step-card">
+                <div class="step-icon">
+                    <i class="fas fa-gavel"></i>
+                </div>
+                <div class="step-content">
+                    <h3>Rechtliche Grundlage</h3>
+                    <p>Mahngebühren sind als <strong>Schadenersatz</strong> nach OR Art. 97 ff. geschuldet. Sie müssen den tatsächlichen Aufwand (Porto, Material, Arbeitszeit) widerspiegeln.</p>
+                    <p style="margin-top: 0.5rem;">Überhöhte Mahngebühren können als <strong>missbräuchlich</strong> angefochten werden.</p>
+                </div>
+            </div>
+
+            <div class="info-step-card">
+                <div class="step-icon">
+                    <i class="fas fa-percent"></i>
+                </div>
+                <div class="step-content">
+                    <h3>Verzugszinsen</h3>
+                    <p>Zusätzlich zu Mahngebühren sind <strong>Verzugszinsen von 5%</strong> geschuldet (OR Art. 104). Diese werden auf das Kapital berechnet, nicht auf die Mahngebühren.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>
+                <a href="https://durchblick.nl/tools_de.html" target="_blank" rel="noopener">Durchblick Consultancy BV</a>
+                &nbsp;•&nbsp;
+                <a href="https://github.com/durchblick-nl/verzugszinsrechner" target="_blank" rel="noopener">
+                    <i class="fab fa-github"></i> Source Code auf GitHub
+                </a>
+            </p>
+            <p class="footer-disclaimer">Dieser Rechner dient nur zur Orientierung. Keine Rechtsberatung.</p>
+        </div>
+    </footer>
+
+    <div class="print-header" style="display: none;">
+        <img src="https://www.durchblick.nl/images/durchblick_logo.svg"
+             alt="Durchblick Consultancy Logo">
+        <div>
+            <h2>Mahnkostenberechnung</h2>
+            <p id="printDate" style="font-size: 0.9rem; color: #666; margin-top: 0.25rem;"></p>
+        </div>
+    </div>
+
+    <div class="print-footer" style="display: none;">
+        <p><strong>verzugszinsrechner.ch</strong> – Mahnrechner nach Schweizerischem Obligationenrecht</p>
+        <p>Dieser Ausdruck dient nur zur Orientierung. Keine Rechtsberatung.</p>
+    </div>
+
+    <div id="disclaimerModal" class="modal">
+        <div class="modal-content">
+            <h2>Rechtlicher Hinweis</h2>
+            <div class="disclaimer-text">
+                <p><strong>Haftungsausschluss und Nutzungsbedingungen</strong></p>
+                <p>Durchblick Consultancy BV stellt diesen Mahnrechner als unverbindliches Hilfsmittel zur Verfügung. Trotz sorgfältiger Entwicklung kann keine Gewähr für die Richtigkeit der Berechnungen übernommen werden.</p>
+
+                <p>Insbesondere wird darauf hingewiesen:</p>
+                <ul>
+                    <li>Der Rechner dient nur zur Orientierung und ersetzt keine Rechtsberatung.</li>
+                    <li>Mahngebühren müssen angemessen sein und können angefochten werden.</li>
+                    <li>Durchblick Consultancy BV übernimmt keine Haftung für Schäden aus der Nutzung.</li>
+                </ul>
+
+                <p>Mit der Nutzung akzeptieren Sie diese Bedingungen.</p>
+            </div>
+            <button onclick="acceptDisclaimer()" class="accept-button">
+                Ich habe den Hinweis gelesen und akzeptiere die Bedingungen
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="../scripts/calculations.js"></script>
+    <script>
+        let reminderCount = 1;
+
+        function addReminder() {
+            reminderCount++;
+            const container = document.getElementById('remindersContainer');
+            const row = document.createElement('div');
+            row.className = 'reminder-row';
+            row.dataset.reminder = reminderCount;
+            row.innerHTML = `
+                <div class="form-group">
+                    <div class="reminder-number">${reminderCount}. Mahnung</div>
+                    <label for="reminderDate${reminderCount}">Datum</label>
+                    <input type="text" id="reminderDate${reminderCount}" name="reminderDate${reminderCount}" class="reminder-date" pattern="\\d{2}\\.\\d{2}\\.\\d{4}" placeholder="TT.MM.JJJJ">
+                </div>
+                <div class="form-group">
+                    <label for="reminderFee${reminderCount}">Mahngebühr (CHF)</label>
+                    <input type="text" id="reminderFee${reminderCount}" name="reminderFee${reminderCount}" class="reminder-fee" placeholder="z.B. ${reminderCount * 10 + 10}.00" value="${reminderCount * 10 + 10}.00">
+                </div>
+                <button type="button" class="remove-reminder" onclick="removeReminder(this)">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+            container.appendChild(row);
+
+            // Initialize flatpickr for new date input
+            flatpickr(`#reminderDate${reminderCount}`, {
+                dateFormat: "d.m.Y",
+                allowInput: true
+            });
+        }
+
+        function removeReminder(button) {
+            const row = button.closest('.reminder-row');
+            row.remove();
+            // Renumber remaining reminders
+            const rows = document.querySelectorAll('.reminder-row');
+            rows.forEach((r, i) => {
+                r.querySelector('.reminder-number').textContent = `${i + 1}. Mahnung`;
+                r.dataset.reminder = i + 1;
+            });
+            reminderCount = rows.length;
+        }
+
+        function toggleCustomRate() {
+            const rateType = document.getElementById('rateType').value;
+            const customGroup = document.getElementById('customRateGroup');
+            customGroup.style.display = rateType === 'custom' ? 'block' : 'none';
+        }
+
+        function parseSwissNumber(str) {
+            if (!str) return 0;
+            return parseFloat(str.replace(/'/g, '').replace(/,/g, '.')) || 0;
+        }
+
+        function formatCHF(amount) {
+            return amount.toLocaleString('de-CH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        function parseDate(dateStr) {
+            const parts = dateStr.split('.');
+            if (parts.length !== 3) return null;
+            return new Date(parts[2], parts[1] - 1, parts[0]);
+        }
+
+        function calculateDays(start, end) {
+            const diffTime = end - start;
+            return Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        }
+
+        document.getElementById('mahnForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const principal = parseSwissNumber(document.getElementById('principal').value);
+            const invoiceDate = parseDate(document.getElementById('invoiceDate').value);
+            const endDate = parseDate(document.getElementById('endDate').value);
+            const rateType = document.getElementById('rateType').value;
+            const rate = rateType === 'custom' ? parseFloat(document.getElementById('customRate').value) : 5;
+
+            if (!invoiceDate || !endDate) {
+                alert('Bitte geben Sie gültige Daten ein.');
+                return;
+            }
+
+            // Collect reminders
+            const reminders = [];
+            document.querySelectorAll('.reminder-row').forEach(row => {
+                const dateInput = row.querySelector('.reminder-date');
+                const feeInput = row.querySelector('.reminder-fee');
+                if (dateInput.value) {
+                    reminders.push({
+                        date: parseDate(dateInput.value),
+                        fee: parseSwissNumber(feeInput.value)
+                    });
+                }
+            });
+
+            // Calculate total reminder fees
+            const totalFees = reminders.reduce((sum, r) => sum + r.fee, 0);
+
+            // Calculate days and interest (from day after invoice date)
+            const startDate = new Date(invoiceDate);
+            startDate.setDate(startDate.getDate() + 1); // Verzug beginnt am Folgetag
+            const days = calculateDays(startDate, endDate);
+            const interest = days > 0 ? (principal * rate / 100 * days / 360) : 0;
+
+            // Total
+            const total = principal + totalFees + interest;
+
+            // Build result HTML
+            let resultHTML = `
+                <h3>Zusammenfassung</h3>
+                <table class="result-table">
+                    <tr>
+                        <td>Rechnungsbetrag:</td>
+                        <td class="amount">CHF ${formatCHF(principal)}</td>
+                    </tr>
+            `;
+
+            if (reminders.length > 0) {
+                resultHTML += `
+                    <tr>
+                        <td colspan="2" style="padding-top: 10px;"><strong>Mahngebühren:</strong></td>
+                    </tr>
+                `;
+                reminders.forEach((r, i) => {
+                    if (r.fee > 0) {
+                        resultHTML += `
+                            <tr>
+                                <td style="padding-left: 20px;">${i + 1}. Mahnung (${r.date.toLocaleDateString('de-CH')}):</td>
+                                <td class="amount">CHF ${formatCHF(r.fee)}</td>
+                            </tr>
+                        `;
+                    }
+                });
+                resultHTML += `
+                    <tr>
+                        <td style="padding-left: 20px;"><strong>Total Mahngebühren:</strong></td>
+                        <td class="amount"><strong>CHF ${formatCHF(totalFees)}</strong></td>
+                    </tr>
+                `;
+            }
+
+            resultHTML += `
+                <tr>
+                    <td colspan="2" style="padding-top: 10px;"><strong>Verzugszinsen:</strong></td>
+                </tr>
+                <tr>
+                    <td style="padding-left: 20px;">Zinssatz:</td>
+                    <td>${rate}% p.a.</td>
+                </tr>
+                <tr>
+                    <td style="padding-left: 20px;">Verzugszeitraum:</td>
+                    <td>${days} Tage</td>
+                </tr>
+                <tr>
+                    <td style="padding-left: 20px;">Verzugszinsen:</td>
+                    <td class="amount">CHF ${formatCHF(interest)}</td>
+                </tr>
+                <tr class="result-total">
+                    <td><strong>Gesamtforderung:</strong></td>
+                    <td class="amount"><strong>CHF ${formatCHF(total)}</strong></td>
+                </tr>
+            </table>
+            `;
+
+            document.querySelector('.result-summary').innerHTML = resultHTML;
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Initialize date pickers
+        document.addEventListener('DOMContentLoaded', function() {
+            flatpickr("#invoiceDate", { dateFormat: "d.m.Y", allowInput: true });
+            flatpickr("#endDate", { dateFormat: "d.m.Y", allowInput: true, defaultDate: "today" });
+            flatpickr("#reminderDate1", { dateFormat: "d.m.Y", allowInput: true });
+        });
+
+        function printResult() {
+            document.getElementById('printDate').textContent = 'Erstellt am: ' + new Date().toLocaleDateString('de-CH');
+            window.print();
+        }
+
+        // Disclaimer modal
+        function acceptDisclaimer() {
+            document.getElementById('disclaimerModal').style.display = 'none';
+            localStorage.setItem('mahnrechner_disclaimer_accepted', 'true');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!localStorage.getItem('mahnrechner_disclaimer_accepted')) {
+                document.getElementById('disclaimerModal').style.display = 'flex';
+            }
+        });
+    </script>
+</body>
+</html>
