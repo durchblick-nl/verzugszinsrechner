@@ -107,6 +107,7 @@ verzugszinsrechner/
 ├── scripts/
 │   ├── calculations.js  # Berechnungslogik / Logique de calcul
 │   └── app.js           # UI-Logik / Logique UI
+├── images/              # OG-Bilder / Images OG (1200x630)
 └── test.js              # Tests (node test.js)
 ```
 
