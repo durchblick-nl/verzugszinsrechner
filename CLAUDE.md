@@ -6,13 +6,24 @@ Schweizer Verzugszinsrechner nach OR Art. 104-106. Bilingual (DE/FR), keine Back
 
 **Live:** https://verzugszinsrechner.ch
 
+## Verfügbare Tools
+
+| Tool | Beschreibung | Link |
+|------|--------------|------|
+| **Verzugszinsrechner** | Verzugszinsen nach OR Art. 104 | [verzugszinsrechner.ch/de/](https://verzugszinsrechner.ch/de/) |
+| **Mahnrechner** | Mahnkosten und Inkassogebühren | [verzugszinsrechner.ch/de/mahnrechner.html](https://verzugszinsrechner.ch/de/mahnrechner.html) |
+
 ## Projektstruktur
 
 ```
 verzugszinsrechner/
 ├── index.html              # Spracherkennung → Redirect zu /de/ oder /fr/
-├── de/index.html           # Deutsche Version
-├── fr/index.html           # Französische Version
+├── de/
+│   ├── index.html          # Verzugszinsrechner (DE)
+│   └── mahnrechner.html    # Mahnrechner (DE)
+├── fr/
+│   ├── index.html          # Intérêts moratoires (FR)
+│   └── mahnrechner.html    # Calculateur de rappel (FR)
 ├── css/
 │   └── styles.css          # Gemeinsame Styles
 ├── scripts/
@@ -43,6 +54,20 @@ Verzugszins = Kapital × Zinssatz × Tage ÷ 360
 ### Zinseszinsverbot (Anatocismus)
 
 Gemäss **OR Art. 105 Abs. 3** dürfen auf Verzugszinsen keine weiteren Verzugszinsen berechnet werden.
+
+### Mahnrechner
+
+Berechnet zulässige Mahnkosten und zeigt rechtliche Grundlagen:
+
+**Mahnkosten in der Schweiz:**
+- **1. Mahnung**: Grundsätzlich kostenlos (Ingangsetzung des Verzugs)
+- **2./3. Mahnung**: CHF 10-20 pro Mahnung als angemessen (BGer)
+- **Inkassogebühren**: Nur zulässig wenn vertraglich vereinbart oder als Schadenersatz
+
+**Rechtliche Grundlagen:**
+- Mahnung als Verzugsbeginn (OR Art. 102)
+- Schadenersatz bei Verzug (OR Art. 103)
+- Ersatz von Inkassokosten nur bei nachgewiesenem Schaden
 
 ### Beispielrechnungen
 

@@ -7,9 +7,16 @@
 <a name="deutsch"></a>
 ## 🇩🇪 Deutsch
 
-Berechne Verzugszinsen nach dem Schweizerischen Obligationenrecht (OR Art. 104-106).
+Berechne Verzugszinsen und Mahnkosten nach Schweizer Recht.
 
 **[verzugszinsrechner.ch](https://verzugszinsrechner.ch)**
+
+### Verfügbare Tools
+
+| Tool | Beschreibung | Link |
+|------|--------------|------|
+| **Verzugszinsrechner** | Verzugszinsen nach OR Art. 104 | [/de/](https://verzugszinsrechner.ch/de/) |
+| **Mahnrechner** | Mahnkosten und Inkassogebühren | [/de/mahnrechner.html](https://verzugszinsrechner.ch/de/mahnrechner.html) |
 
 ### Was ist Verzugszins?
 
@@ -53,9 +60,16 @@ Gemäss **OR Art. 105 Abs. 3** dürfen auf Verzugszinsen keine weiteren Verzugsz
 <a name="français"></a>
 ## 🇫🇷 Français
 
-Calculez les intérêts moratoires selon le Code des obligations suisse (CO art. 104-106).
+Calculez les intérêts moratoires et frais de rappel selon le droit suisse.
 
 **[verzugszinsrechner.ch](https://verzugszinsrechner.ch)**
+
+### Outils disponibles
+
+| Outil | Description | Lien |
+|-------|-------------|------|
+| **Intérêts moratoires** | Intérêts selon CO art. 104 | [/fr/](https://verzugszinsrechner.ch/fr/) |
+| **Calculateur de rappel** | Frais de rappel et d'encaissement | [/fr/mahnrechner.html](https://verzugszinsrechner.ch/fr/mahnrechner.html) |
 
 ### Qu'est-ce que l'intérêt moratoire?
 
@@ -101,8 +115,12 @@ Selon **CO art. 105 al. 3**, il n'est pas dû d'intérêts moratoires sur les in
 ```
 verzugszinsrechner/
 ├── index.html           # Spracherkennung / Détection de langue
-├── de/index.html        # Deutsche Version
-├── fr/index.html        # Version française
+├── de/
+│   ├── index.html       # Verzugszinsrechner (DE)
+│   └── mahnrechner.html # Mahnrechner (DE)
+├── fr/
+│   ├── index.html       # Intérêts moratoires (FR)
+│   └── mahnrechner.html # Calculateur de rappel (FR)
 ├── css/styles.css       # Gemeinsame Styles / Styles partagés
 ├── scripts/
 │   ├── calculations.js  # Berechnungslogik / Logique de calcul
