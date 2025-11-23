@@ -143,4 +143,4 @@ MIT
 
 ---
 
-[Durchblick Consultancy BV](https://durchblick.nl) • [Source Code](https://github.com/chosee/verzugszinsrechner)
+[Durchblick Consultancy BV](https://durchblick.nl) • [Source Code](https://github.com/durchblick-nl/verzugszinsrechner)
