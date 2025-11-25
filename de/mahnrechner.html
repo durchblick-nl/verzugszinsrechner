@@ -580,8 +580,10 @@
             // Daten für PDF-Export speichern
             lastMahnData = {
                 principal: principal,
-                reminderCount: reminders.length,
-                reminderFees: totalFees,
+                reminders: reminders,
+                totalFees: totalFees,
+                rate: rate,
+                days: days,
                 interest: interest,
                 total: total
             };

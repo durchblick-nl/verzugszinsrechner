@@ -262,39 +262,91 @@ const MahnrechnerPdfExport = {
         doc.setTextColor(0, 0, 0);
         y = this.addSectionHeader(doc, texts.inputData, y, primaryColor);
 
-        const inputLines = [
-            [texts.principal, this.formatCHF(data.principal)],
-            [texts.reminderCount, data.reminderCount.toString()]
-        ];
+        doc.setFontSize(9);
+        doc.setFont('helvetica', 'normal');
+        doc.text(texts.principal, 15, y);
+        doc.setFont('helvetica', 'bold');
+        doc.text(this.formatCHF(data.principal), 190, y, { align: 'right' });
+        y += 8;
 
-        y = this.addTable(doc, inputLines, 15, y);
+        // Mahngebühren
+        y += 5;
+        y = this.addSectionHeader(doc, texts.reminderFeesTitle, y, primaryColor);
+
+        doc.setFontSize(9);
+        if (data.reminders && data.reminders.length > 0) {
+            data.reminders.forEach((r, i) => {
+                if (r.fee > 0) {
+                    doc.setFont('helvetica', 'normal');
+                    const dateStr = r.date.toLocaleDateString(lang === 'fr' ? 'fr-CH' : 'de-CH');
+                    doc.text(`${i + 1}. ${texts.reminder} (${dateStr}):`, 20, y);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text(this.formatCHF(r.fee), 190, y, { align: 'right' });
+                    y += 6;
+                }
+            });
+        }
+
+        // Total Mahngebühren
+        doc.setFont('helvetica', 'bold');
+        doc.text(texts.totalReminderFees, 20, y);
+        doc.text(this.formatCHF(data.totalFees), 190, y, { align: 'right' });
         y += 10;
 
-        // Ergebnis
-        y = this.addSectionHeader(doc, texts.result, y, primaryColor);
+        // Verzugszinsen
+        y = this.addSectionHeader(doc, texts.interestTitle, y, primaryColor);
 
+        doc.setFontSize(9);
+        doc.setFont('helvetica', 'normal');
+        doc.text(texts.rate, 20, y);
+        doc.text(`${data.rate}% p.a.`, 190, y, { align: 'right' });
+        y += 6;
+
+        doc.text(texts.period, 20, y);
+        doc.text(`${data.days} ${texts.days}`, 190, y, { align: 'right' });
+        y += 6;
+
+        doc.text(texts.interestAmount, 20, y);
+        doc.setFont('helvetica', 'bold');
+        doc.text(this.formatCHF(data.interest), 190, y, { align: 'right' });
+        y += 12;
+
+        // Gesamtforderung
         doc.setFillColor(240, 248, 255);
-        doc.roundedRect(15, y, 180, 35, 3, 3, 'F');
+        doc.roundedRect(15, y, 180, 18, 3, 3, 'F');
 
         doc.setTextColor(...primaryColor);
-        doc.setFontSize(10);
+        doc.setFontSize(11);
         doc.setFont('helvetica', 'bold');
-        doc.text(texts.reminderFees, 25, y + 10);
+        doc.text(texts.total, 25, y + 12);
 
         doc.setFontSize(14);
         doc.setTextColor(...accentColor);
-        doc.text(this.formatCHF(data.reminderFees), 190, y + 10, { align: 'right' });
+        doc.text(this.formatCHF(data.total), 190, y + 12, { align: 'right' });
 
-        doc.setTextColor(...primaryColor);
-        doc.setFontSize(10);
-        doc.text(texts.total, 25, y + 25);
+        y += 28;
 
-        doc.setFontSize(14);
-        doc.setTextColor(0, 0, 0);
-        doc.setFont('helvetica', 'bold');
-        doc.text(this.formatCHF(data.total), 190, y + 25, { align: 'right' });
+        // Rechtliche Grundlagen
+        y = this.addSectionHeader(doc, texts.legalBasis, y, primaryColor);
 
-        y += 45;
+        doc.setFontSize(8);
+        doc.setTextColor(80, 80, 80);
+        doc.setFont('helvetica', 'normal');
+
+        const legalLines = lang === 'fr' ? [
+            'CO Art. 104: Taux d\'intérêt moratoire de 5% par an',
+            'Les frais de rappel doivent être appropriés'
+        ] : [
+            'OR Art. 104: Verzugszins von 5% pro Jahr',
+            'Mahngebühren müssen angemessen sein'
+        ];
+
+        legalLines.forEach(line => {
+            doc.text(line, 15, y);
+            y += 5;
+        });
+
+        y += 8;
 
         // Footer
         doc.setTextColor(100, 100, 100);
@@ -353,28 +405,40 @@ const MahnrechnerPdfExport = {
         if (lang === 'fr') {
             return {
                 title: 'Calcul des frais de rappel',
-                subtitle: 'Frais de rappel et d\'encaissement',
+                subtitle: 'Frais de rappel et intérêts moratoires',
                 date: 'Date',
-                inputData: 'Données saisies',
-                principal: 'Montant de la créance',
-                reminderCount: 'Nombre de rappels',
-                result: 'Résultat',
-                reminderFees: 'Frais de rappel:',
-                total: 'Total à payer:',
+                inputData: 'Montant de la facture',
+                principal: 'Montant de la facture:',
+                reminderFeesTitle: 'Frais de rappel',
+                reminder: 'Rappel',
+                totalReminderFees: 'Total frais de rappel:',
+                interestTitle: 'Intérêts moratoires',
+                rate: 'Taux d\'intérêt:',
+                period: 'Période de retard:',
+                days: 'jours',
+                interestAmount: 'Intérêts moratoires:',
+                total: 'Créance totale:',
+                legalBasis: 'Base légale',
                 disclaimer: 'Ce document sert uniquement d\'orientation. Pas de conseil juridique.',
                 footerInfo: 'Calculateur de frais de rappel'
             };
         }
         return {
             title: 'Mahnkostenberechnung',
-            subtitle: 'Mahnkosten und Inkassogebühren',
+            subtitle: 'Mahnkosten und Verzugszinsen',
             date: 'Datum',
-            inputData: 'Eingabedaten',
-            principal: 'Forderungsbetrag',
-            reminderCount: 'Anzahl Mahnungen',
-            result: 'Ergebnis',
-            reminderFees: 'Mahnkosten:',
-            total: 'Total zu zahlen:',
+            inputData: 'Rechnungsbetrag',
+            principal: 'Rechnungsbetrag:',
+            reminderFeesTitle: 'Mahngebühren',
+            reminder: 'Mahnung',
+            totalReminderFees: 'Total Mahngebühren:',
+            interestTitle: 'Verzugszinsen',
+            rate: 'Zinssatz:',
+            period: 'Verzugszeitraum:',
+            days: 'Tage',
+            interestAmount: 'Verzugszinsen:',
+            total: 'Gesamtforderung:',
+            legalBasis: 'Rechtliche Grundlagen',
             disclaimer: 'Dieses Dokument dient nur zur Orientierung. Keine Rechtsberatung.',
             footerInfo: 'Mahnkostenrechner'
         };
