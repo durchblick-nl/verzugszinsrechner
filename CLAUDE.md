@@ -28,7 +28,8 @@ verzugszinsrechner/
 │   └── styles.css          # Gemeinsame Styles
 ├── scripts/
 │   ├── calculations.js     # Berechnungslogik
-│   └── app.js              # UI-Logik
+│   ├── app.js              # UI-Logik
+│   └── pdf-export.js       # PDF-Export (jsPDF)
 ├── images/
 │   ├── og-zins-de.png      # OG-Bild Deutsch (1200x630)
 │   └── og-zins-fr.png      # OG-Bild Französisch (1200x630)

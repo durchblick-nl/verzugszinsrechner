@@ -124,7 +124,8 @@ verzugszinsrechner/
 ├── css/styles.css       # Gemeinsame Styles / Styles partagés
 ├── scripts/
 │   ├── calculations.js  # Berechnungslogik / Logique de calcul
-│   └── app.js           # UI-Logik / Logique UI
+│   ├── app.js           # UI-Logik / Logique UI
+│   └── pdf-export.js    # PDF-Export (jsPDF)
 ├── images/              # OG-Bilder / Images OG (1200x630)
 └── test.js              # Tests (node test.js)
 ```

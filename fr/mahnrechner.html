@@ -306,8 +306,8 @@
 
             <div id="result" class="result" style="display: none;">
                 <div class="result-actions">
-                    <button type="button" onclick="printResult()" class="print-button">
-                        <i class="fas fa-print"></i> Imprimer le résultat
+                    <button type="button" onclick="exportPDF()" class="print-button">
+                        <i class="fas fa-file-pdf"></i> Enregistrer en PDF
                     </button>
                 </div>
                 <div class="result-summary"></div>
@@ -577,6 +577,15 @@
             document.querySelector('.result-summary').innerHTML = resultHTML;
             document.getElementById('result').style.display = 'block';
             document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+
+            // Données pour export PDF
+            lastMahnData = {
+                principal: amount,
+                reminderCount: reminderCount,
+                reminderFees: reminderFees,
+                interest: interest,
+                total: total
+            };
         });
 
         // Initialize date pickers
@@ -591,6 +600,21 @@
             window.print();
         }
 
+        // PDF Export
+        let lastMahnData = null;
+
+        function exportPDF() {
+            if (!lastMahnData) {
+                alert('Veuillez d\'abord effectuer un calcul.');
+                return;
+            }
+            if (typeof MahnrechnerPdfExport !== 'undefined') {
+                MahnrechnerPdfExport.generatePDF(lastMahnData, 'fr');
+            } else {
+                printResult();
+            }
+        }
+
         // Disclaimer modal
         function acceptDisclaimer() {
             document.getElementById('disclaimerModal').style.display = 'none';
@@ -603,5 +627,7 @@
             }
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.3/jspdf.umd.min.js"></script>
+    <script src="../scripts/pdf-export.js"></script>
 </body>
 </html>

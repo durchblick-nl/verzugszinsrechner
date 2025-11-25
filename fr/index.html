@@ -223,8 +223,8 @@
 
             <div id="result" class="result" style="display: none;">
                 <div class="result-actions">
-                    <button type="button" onclick="printResult()" class="print-button">
-                        <i class="fas fa-print"></i> Imprimer le résultat
+                    <button type="button" onclick="exportPDF()" class="print-button">
+                        <i class="fas fa-file-pdf"></i> Enregistrer en PDF
                     </button>
                 </div>
                 <div class="result-summary"></div>
@@ -357,7 +357,9 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.3/jspdf.umd.min.js"></script>
     <script src="../scripts/calculations.js"></script>
     <script src="../scripts/app.js"></script>
+    <script src="../scripts/pdf-export.js"></script>
 </body>
 </html>

@@ -138,7 +138,13 @@ document.getElementById('zinsForm').addEventListener('submit', function(e) {
     displayResult(result);
 });
 
+// Globale Variable für PDF-Export
+let lastCalculationResult = null;
+
 function displayResult(result) {
+    // Daten für PDF-Export speichern
+    lastCalculationResult = result;
+
     const lang = document.documentElement.lang || 'de';
     const resultDiv = document.getElementById('result');
     const resultSummary = resultDiv.querySelector('.result-summary');
@@ -213,4 +219,22 @@ function printResult() {
         printDateEl.textContent = prefix + new Date().toLocaleDateString(locale, dateOptions);
     }
     window.print();
+}
+
+function exportPDF() {
+    if (!lastCalculationResult) {
+        const lang = document.documentElement.lang || 'de';
+        alert(lang === 'fr'
+            ? 'Veuillez d\'abord effectuer un calcul.'
+            : 'Bitte führen Sie zuerst eine Berechnung durch.');
+        return;
+    }
+
+    const lang = document.documentElement.lang || 'de';
+
+    if (typeof VerzugszinsPdfExport !== 'undefined') {
+        VerzugszinsPdfExport.generatePDF(lastCalculationResult, lang);
+    } else {
+        printResult();
+    }
 }
