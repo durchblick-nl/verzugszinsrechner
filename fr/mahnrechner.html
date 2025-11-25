@@ -243,7 +243,9 @@
                             </div>
                             <div class="form-group">
                                 <label for="reminderFee1">Frais de rappel (CHF)</label>
-                                <input type="text" id="reminderFee1" name="reminderFee1" class="reminder-fee" placeholder="p.ex. 20.00" value="0.00">
+                                <div class="currency-input-wrapper">
+                                    <input type="text" id="reminderFee1" name="reminderFee1" class="reminder-fee" placeholder="p.ex. 20.00" value="20.00">
+                                </div>
                             </div>
                             <button type="button" class="remove-reminder" onclick="removeReminder(this)" style="visibility: hidden;">
                                 <i class="fas fa-trash"></i>
@@ -422,7 +424,9 @@
                 </div>
                 <div class="form-group">
                     <label for="reminderFee${reminderCount}">Frais de rappel (CHF)</label>
-                    <input type="text" id="reminderFee${reminderCount}" name="reminderFee${reminderCount}" class="reminder-fee" placeholder="p.ex. ${reminderCount * 10 + 10}.00" value="${reminderCount * 10 + 10}.00">
+                    <div class="currency-input-wrapper">
+                        <input type="text" id="reminderFee${reminderCount}" name="reminderFee${reminderCount}" class="reminder-fee" placeholder="p.ex. ${reminderCount * 10 + 10}.00" value="${reminderCount * 10 + 10}.00">
+                    </div>
                 </div>
                 <button type="button" class="remove-reminder" onclick="removeReminder(this)">
                     <i class="fas fa-trash"></i>
