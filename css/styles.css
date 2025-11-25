@@ -1555,6 +1555,7 @@
             justify-content: flex-end;
             align-items: center;
             margin-bottom: 1rem;
+            gap: 15px;
         }
 
         .language-switcher {
