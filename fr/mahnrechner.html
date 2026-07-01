@@ -533,8 +533,9 @@
             // Calculate days and interest (from day after invoice date)
             const startDate = new Date(invoiceDate);
             startDate.setDate(startDate.getDate() + 1); // La demeure commence le lendemain
-            const days = calculateDays(startDate, endDate);
-            const interest = days > 0 ? (principal * rate / 100 * days / 360) : 0;
+            const interestResult = calculateDefaultInterest(principal, startDate, endDate, rate);
+            const days = interestResult.error ? calculateDays(startDate, endDate) : interestResult.days;
+            const interest = interestResult.error ? 0 : interestResult.interest;
 
             // Total
             const total = principal + totalFees + interest;

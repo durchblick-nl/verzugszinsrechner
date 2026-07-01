@@ -87,8 +87,8 @@ const VerzugszinsPdfExport = {
         doc.setFont('helvetica', 'normal');
 
         const formula = lang === 'fr'
-            ? `${this.formatCHF(data.principal)} x ${data.interestRate}% x ${data.days} / 360 = ${this.formatCHF(data.interest)}`
-            : `${this.formatCHF(data.principal)} x ${data.interestRate}% x ${data.days} / 360 = ${this.formatCHF(data.interest)}`;
+            ? `${this.formatCHF(data.principal)} x ${data.interestRate}% x fraction annuelle actual/actual = ${this.formatCHF(data.interest)}`
+            : `${this.formatCHF(data.principal)} x ${data.interestRate}% x Actual/Actual-Jahresbruchteil = ${this.formatCHF(data.interest)}`;
 
         doc.text(texts.method + ': ' + texts.methodDesc, 15, y);
         y += 6;
@@ -190,7 +190,7 @@ const VerzugszinsPdfExport = {
                 total: 'Total (capital + intérêts):',
                 calculation: 'Détails du calcul',
                 method: 'Méthode',
-                methodDesc: 'Année de 360 jours',
+                methodDesc: 'Méthode actual/actual',
                 formula: 'Formule',
                 legalBasis: 'Base légale',
                 disclaimer: 'Ce document sert uniquement d\'orientation. Pas de conseil juridique.',
@@ -212,7 +212,7 @@ const VerzugszinsPdfExport = {
             total: 'Total (Kapital + Zins):',
             calculation: 'Berechnungsdetails',
             method: 'Methode',
-            methodDesc: '360-Tage-Jahr',
+            methodDesc: 'Actual/Actual-Methode',
             formula: 'Formel',
             legalBasis: 'Rechtliche Grundlagen',
             disclaimer: 'Dieses Dokument dient nur zur Orientierung. Keine Rechtsberatung.',

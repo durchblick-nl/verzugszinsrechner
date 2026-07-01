@@ -34,7 +34,7 @@ console.log('=== VERZUGSZINSRECHNER TESTS ===\n');
 console.log('--- Grundlegende Zinsberechnung ---');
 
 // Test 1: Simple 1-year calculation at 5%
-// CHF 10'000 for 366 days (2024 is leap year) at 5% = 10000 * 0.05 * 366/360 = 508.33
+// CHF 10'000 for a full leap-year period at 5% = CHF 500.00 with actual/actual
 {
     const result = calculateDefaultInterest(
         10000,
@@ -42,12 +42,12 @@ console.log('--- Grundlegende Zinsberechnung ---');
         new Date(2025, 0, 1),  // 1.1.2025 (366 days)
         5
     );
-    test('1 Jahr (Schaltjahr) bei 5%: CHF 10\'000 → CHF 508.33 Zins',
-        approxEqual(result.interest, 508.33, 1));
+    test('1 Jahr (Schaltjahr) bei 5%: CHF 10\'000 → CHF 500.00 Zins',
+        approxEqual(result.interest, 500, 0.01));
 }
 
 // Test 2: 30 days calculation
-// CHF 10'000 for 30 days at 5% = 10000 * 0.05 * 30/360 = CHF 41.67
+// CHF 10'000 for 30 days at 5% in leap year = 10000 * 0.05 * 30/366 = CHF 40.98
 {
     const result = calculateDefaultInterest(
         10000,
@@ -55,12 +55,12 @@ console.log('--- Grundlegende Zinsberechnung ---');
         new Date(2024, 0, 31),
         5
     );
-    test('30 Tage bei 5%: CHF 10\'000 → CHF 41.67 Zins',
-        approxEqual(result.interest, 41.67, 0.01));
+    test('30 Tage bei 5%: CHF 10\'000 → CHF 40.98 Zins',
+        approxEqual(result.interest, 40.98, 0.01));
 }
 
-// Test 3: 90 days calculation
-// CHF 5'000 for 90 days at 5% = 5000 * 0.05 * 90/360 = CHF 62.50
+// Test 3: 91 days calculation
+// CHF 5'000 for 91 days at 5% in leap year = 5000 * 0.05 * 91/366 = CHF 62.16
 {
     const result = calculateDefaultInterest(
         5000,
@@ -68,8 +68,8 @@ console.log('--- Grundlegende Zinsberechnung ---');
         new Date(2024, 3, 1),
         5
     );
-    test('90 Tage bei 5%: CHF 5\'000 → CHF 62.50 Zins',
-        approxEqual(result.interest, 62.50, 1));
+    test('91 Tage bei 5%: CHF 5\'000 → CHF 62.16 Zins',
+        approxEqual(result.interest, 62.16, 0.01));
 }
 
 // --- Different Interest Rates ---
@@ -83,9 +83,9 @@ console.log('\n--- Verschiedene Zinssätze ---');
         new Date(2024, 0, 31),
         8
     );
-    // 10000 * 0.08 * 30/360 = 66.67
-    test('30 Tage bei 8%: CHF 10\'000 → CHF 66.67 Zins',
-        approxEqual(result.interest, 66.67, 0.01));
+    // 10000 * 0.08 * 30/366 = 65.57
+    test('30 Tage bei 8%: CHF 10\'000 → CHF 65.57 Zins',
+        approxEqual(result.interest, 65.57, 0.01));
 }
 
 // Test 5: 3.5% interest rate (1.1. to 1.7. = 182 days in leap year)
@@ -96,9 +96,9 @@ console.log('\n--- Verschiedene Zinssätze ---');
         new Date(2024, 6, 1),  // 182 days
         3.5
     );
-    // 20000 * 0.035 * 182/360 = 353.89
-    test('182 Tage bei 3.5%: CHF 20\'000 → ~CHF 354 Zins',
-        approxEqual(result.interest, 353.89, 5));
+    // 20000 * 0.035 * 182/366 = 348.09
+    test('182 Tage bei 3.5%: CHF 20\'000 → ~CHF 348 Zins',
+        approxEqual(result.interest, 348.09, 0.01));
 }
 
 // --- Edge Cases ---
@@ -112,9 +112,9 @@ console.log('\n--- Grenzfälle ---');
         new Date(2024, 0, 31),
         5
     );
-    // 100 * 0.05 * 30/360 = 0.42
-    test('Kleiner Betrag: CHF 100 für 30 Tage → CHF 0.42 Zins',
-        approxEqual(result.interest, 0.42, 0.01));
+    // 100 * 0.05 * 30/366 = 0.41
+    test('Kleiner Betrag: CHF 100 für 30 Tage → CHF 0.41 Zins',
+        approxEqual(result.interest, 0.41, 0.01));
 }
 
 // Test 7: Large amount
@@ -125,9 +125,9 @@ console.log('\n--- Grenzfälle ---');
         new Date(2024, 0, 31),
         5
     );
-    // 1000000 * 0.05 * 30/360 = 4166.67
-    test('Grosser Betrag: CHF 1\'000\'000 für 30 Tage → CHF 4\'166.67 Zins',
-        approxEqual(result.interest, 4166.67, 0.01));
+    // 1000000 * 0.05 * 30/366 = 4098.36
+    test('Grosser Betrag: CHF 1\'000\'000 für 30 Tage → CHF 4\'098.36 Zins',
+        approxEqual(result.interest, 4098.36, 0.01));
 }
 
 // Test 8: Single day
@@ -138,9 +138,9 @@ console.log('\n--- Grenzfälle ---');
         new Date(2024, 0, 2),
         5
     );
-    // 10000 * 0.05 * 1/360 = 1.39
-    test('1 Tag: CHF 10\'000 → CHF 1.39 Zins',
-        approxEqual(result.interest, 1.39, 0.01));
+    // 10000 * 0.05 * 1/366 = 1.37
+    test('1 Tag: CHF 10\'000 → CHF 1.37 Zins',
+        approxEqual(result.interest, 1.37, 0.01));
 }
 
 // --- Error Handling ---
@@ -204,9 +204,9 @@ console.log('\n--- Praxisbeispiele ---');
         new Date(2024, 3, 15), // 15.4.2024 (45 days)
         5
     );
-    // 15000 * 0.05 * 45/360 = 93.75
-    test('Rechnung CHF 15\'000, ~45 Tage überfällig → ~CHF 94 Zins',
-        approxEqual(result.interest, 93.75, 3));
+    // 15000 * 0.05 * 45/366 = 92.21
+    test('Rechnung CHF 15\'000, ~45 Tage überfällig → ~CHF 92 Zins',
+        approxEqual(result.interest, 92.21, 0.01));
 }
 
 // Test 15: Long overdue payment
@@ -218,9 +218,9 @@ console.log('\n--- Praxisbeispiele ---');
         new Date(2024, 0, 1),
         5
     );
-    // 50000 * 0.05 * 730/360 ≈ 5069.44
-    test('CHF 50\'000, 2 Jahre überfällig → ~CHF 5\'069 Zins',
-        approxEqual(result.interest, 5069.44, 10));
+    // Two full non-leap years with actual/actual = 50000 * 0.05 * 2
+    test('CHF 50\'000, 2 Jahre überfällig → CHF 5\'000 Zins',
+        approxEqual(result.interest, 5000, 0.01));
 }
 
 // --- Result Object ---

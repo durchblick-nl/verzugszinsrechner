@@ -161,7 +161,7 @@ function displayResult(result) {
         interest: 'Intérêts moratoires',
         total: 'Total (capital + intérêts)',
         method: 'Méthode de calcul',
-        methodDesc: 'Année de 360 jours'
+        methodDesc: 'Méthode actual/actual'
     } : {
         title: 'Berechnungsergebnis',
         principal: 'Kapital',
@@ -171,7 +171,7 @@ function displayResult(result) {
         interest: 'Verzugszins',
         total: 'Total (Kapital + Zins)',
         method: 'Berechnungsmethode',
-        methodDesc: '360-Tage-Jahr'
+        methodDesc: 'Actual/Actual-Methode'
     };
 
     resultSummary.innerHTML = `

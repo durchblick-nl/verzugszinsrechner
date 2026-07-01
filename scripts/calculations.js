@@ -21,13 +21,11 @@ function calculateDefaultInterest(principal, startDate, endDate, interestRate = 
     }
 
     // Calculate days
-    const msPerDay = 24 * 60 * 60 * 1000;
-    const totalDays = Math.floor((endDate - startDate) / msPerDay);
+    const totalDays = daysBetweenCalendarDates(startDate, endDate);
 
-    // Calculate interest using actual/360 method (common in Swiss banking)
-    // Alternative: actual/365 or actual/actual
-    const dailyRate = interestRate / 100 / 360;
-    const interest = principal * dailyRate * totalDays;
+    // Calculate interest using actual/actual day count:
+    // each day accrues 1 / days-in-that-calendar-year of the annual rate.
+    const interest = principal * (interestRate / 100) * calculateActualActualYearFraction(startDate, endDate);
 
     // Round to 2 decimal places (Rappen)
     const roundedInterest = Math.round(interest * 100) / 100;
@@ -41,8 +39,34 @@ function calculateDefaultInterest(principal, startDate, endDate, interestRate = 
         interestRate: interestRate,
         interest: roundedInterest,
         total: total,
-        method: '360-day year'
+        method: 'actual/actual'
     };
+}
+
+function calculateActualActualYearFraction(startDate, endDate) {
+    let cursor = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+    const end = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+    let yearFraction = 0;
+
+    while (cursor < end) {
+        const nextYear = new Date(cursor.getFullYear() + 1, 0, 1);
+        const periodEnd = nextYear < end ? nextYear : end;
+        const days = daysBetweenCalendarDates(cursor, periodEnd);
+        yearFraction += days / daysInYear(cursor.getFullYear());
+        cursor = periodEnd;
+    }
+
+    return yearFraction;
+}
+
+function daysInYear(year) {
+    return new Date(year, 1, 29).getMonth() === 1 ? 366 : 365;
+}
+
+function daysBetweenCalendarDates(startDate, endDate) {
+    const startUtc = Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+    const endUtc = Date.UTC(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+    return Math.floor((endUtc - startUtc) / (24 * 60 * 60 * 1000));
 }
 
 /**
@@ -59,8 +83,7 @@ function calculateCompoundInterest(principal, startDate, endDate, interestRate =
         return { error: 'End date must be after start date' };
     }
 
-    const msPerDay = 24 * 60 * 60 * 1000;
-    const totalDays = Math.floor((endDate - startDate) / msPerDay);
+    const totalDays = daysBetweenCalendarDates(startDate, endDate);
     const years = totalDays / 365;
 
     // Compound interest formula: A = P(1 + r)^t
@@ -118,6 +141,8 @@ if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         calculateDefaultInterest,
         calculateCompoundInterest,
+        calculateActualActualYearFraction,
+        daysBetweenCalendarDates,
         formatCHF,
         formatNumber,
         parseSwissNumber
